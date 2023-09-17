@@ -1,0 +1,13 @@
+.card-thumbnail {
+  --cover-color: #45aab8; /* gets manipulated by javascript */
+  width: min-content;
+}
+
+.card-thumbnail__cover-color {
+  fill: var(--cover-color);
+}
+
+/* Utility classes */
+.hidden {
+  display: none;
+}

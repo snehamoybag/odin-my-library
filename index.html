@@ -12,98 +12,146 @@
   <body>
     <head></head>
     <main>
-      <form action="/" method="post" id="form" class="form">
-        <p>
-          <label for="book-name">Book Name</label>
-          <input type="text" id="book-name" name="book-name" required />
-        </p>
-        <p>
-          <label for="book-author">Author's Name</label>
-          <input type="text" id="book-author" name="book-author" required />
-        </p>
-        <p>
-          <label for="book-pages">Number of Pages</label>
-          <input type="number" id="book-pages" name="book-pages" required />
-        </p>
-        <p>
-          <label for="book-category">
-            <span class="sr-only">Select a Category</span>
-          </label>
-          <select id="book-category" name="book-category" required>
-            <optgroup label="Fiction">
-              <option>Action and adventure</option>
-              <option>Alternate history</option>
-              <option>Anthology</option>
-              <option>Chick lit</option>
-              <option>Children's</option>
-              <option>Classic</option>
-              <option>Comic book</option>
-              <option>Coming-of-age</option>
-              <option>Crime</option>
-              <option>Drama</option>
-              <option>Fairytale</option>
-              <option>Fantasy</option>
-              <option>Graphic novel</option>
-              <option>Historical fiction</option>
-              <option>Horror</option>
-              <option>Mystery</option>
-              <option>Paranormal romance</option>
-              <option>Picture book</option>
-              <option>Poetry</option>
-              <option>Political thriller</option>
-              <option>Romance</option>
-              <option>Satire</option>
-              <option>Science fiction</option>
-              <option>Short story</option>
-              <option>Suspense</option>
-              <option>Thriller</option>
-              <option>Western</option>
-              <option>Young adult</option>
-              <option value="Fiction">Other</option>
-            </optgroup>
-            <optgroup label="Non-fiction">
-              <option>Art/architecture</option>
-              <option>Autobiography</option>
-              <option>Biography</option>
-              <option>Business/economics</option>
-              <option>Crafts/hobbies</option>
-              <option>Cookbook</option>
-              <option>Diary</option>
-              <option>Dictionary</option>
-              <option>Encyclopedia</option>
-              <option>Guide</option>
-              <option>Health/fitness</option>
-              <option>History</option>
-              <option>Home and garden</option>
-              <option>Humor</option>
-              <option>Journal</option>
-              <option>Math</option>
-              <option>Memoir</option>
-              <option>Philosophy</option>
-              <option>Prayer</option>
-              <option>Religion, spirituality, and new age</option>
-              <option>Textbook</option>
-              <option>True crime</option>
-              <option>Review</option>
-              <option>Science</option>
-              <option>Self help</option>
-              <option>Sports and leisure</option>
-              <option>Travel</option>
-              <option>True crime</option>
-              <option value="Non-fiction">Other</option>
-            </optgroup>
-          </select>
-        </p>
-        <p>
-          <label for="read-status">Select Status</label>
-          <select id="read-status" name="book-read-status">
-            <option value="read">Read</option>
-            <option value="reading">Reading</option>
-            <option value="not-read">Not yet read</option>
-          </select>
-        </p>
-        <button type="submit">Add</button>
-      </form>
+      <dialog id="form-modal" class="form__modal">
+        <form action="/" method="dialog" id="new-book-form" class="form">
+          <p>
+            <label for="book-name">Book Name</label>
+            <input type="text" id="book-name" name="book-name" required />
+          </p>
+          <p>
+            <label for="book-author">Author's Name</label>
+            <input type="text" id="book-author" name="book-author" required />
+          </p>
+          <p>
+            <label for="book-pages">Number of Pages</label>
+            <input type="number" id="book-pages" name="book-pages" required />
+          </p>
+          <p>
+            <label for="book-category">
+              <span class="sr-only">Select a Category</span>
+            </label>
+            <select id="book-category" name="book-category" required>
+              <optgroup label="Fiction">
+                <option>Action and adventure</option>
+                <option>Alternate history</option>
+                <option>Anthology</option>
+                <option>Chick lit</option>
+                <option>Children's</option>
+                <option>Classic</option>
+                <option>Comic book</option>
+                <option>Coming-of-age</option>
+                <option>Crime</option>
+                <option>Drama</option>
+                <option>Fairytale</option>
+                <option>Fantasy</option>
+                <option>Graphic novel</option>
+                <option>Historical fiction</option>
+                <option>Horror</option>
+                <option>Mystery</option>
+                <option>Paranormal romance</option>
+                <option>Picture book</option>
+                <option>Poetry</option>
+                <option>Political thriller</option>
+                <option>Romance</option>
+                <option>Satire</option>
+                <option>Science fiction</option>
+                <option>Short story</option>
+                <option>Suspense</option>
+                <option>Thriller</option>
+                <option>Western</option>
+                <option>Young adult</option>
+                <option value="Fiction">Other</option>
+              </optgroup>
+              <optgroup label="Non-fiction">
+                <option>Art/architecture</option>
+                <option>Autobiography</option>
+                <option>Biography</option>
+                <option>Business/economics</option>
+                <option>Crafts/hobbies</option>
+                <option>Cookbook</option>
+                <option>Diary</option>
+                <option>Dictionary</option>
+                <option>Encyclopedia</option>
+                <option>Guide</option>
+                <option>Health/fitness</option>
+                <option>History</option>
+                <option>Home and garden</option>
+                <option>Humor</option>
+                <option>Journal</option>
+                <option>Math</option>
+                <option>Memoir</option>
+                <option>Philosophy</option>
+                <option>Prayer</option>
+                <option>Religion, spirituality, and new age</option>
+                <option>Textbook</option>
+                <option>True crime</option>
+                <option>Review</option>
+                <option>Science</option>
+                <option>Self help</option>
+                <option>Sports and leisure</option>
+                <option>Travel</option>
+                <option>True crime</option>
+                <option value="Non-fiction">Other</option>
+              </optgroup>
+            </select>
+          </p>
+          <p>
+            <label for="read-status">Select Status</label>
+            <select id="read-status" name="book-read-status">
+              <option value="Read">Read</option>
+              <option value="Reading">Reading</option>
+              <option value="Not Read">Not yet read</option>
+            </select>
+          </p>
+          <button type="submit">Add</button>
+        </form>
+        <button type="button" id="close-form-modal-btn">
+          <span class="sr-only">Close Modal</span>
+          <span aria-hidden="true">x</span>
+        </button>
+      </dialog>
+      <div id="cards" class="cards">
+        <div class="card card--empty">
+          <button type="button" id="open-form-modal-btn">
+            <span class="sr-only">Add New Book</span
+            ><span aria-hidden="true">+</span>
+          </button>
+        </div>
+      </div>
+      <!-- hidden. we will grab it with javascript -->
+      <svg
+        id="card-thumbnail-svg"
+        class="card-thumbnail hidden"
+        aria-hidden="true"
+        version="1.0"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="100px"
+        height="100px"
+        viewBox="0 0 64 64"
+        enable-background="new 0 0 64 64"
+        xml:space="preserve"
+      >
+        <g>
+          <path
+            fill="#394240"
+            d="M56,0H8C5.789,0,4,1.789,4,4v52c0,4.418,3.582,8,8,8h44c2.211,0,4-1.789,4-4V4C60,1.789,58.211,0,56,0z
+		 M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z M52,40H12V8h40V40z"
+          />
+          <path
+            fill="#F9EBB2"
+            d="M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z"
+          />
+          <rect
+            class="card-thumbnail__cover-color"
+            x="12"
+            y="8"
+            width="40"
+            height="32"
+          />
+        </g>
+      </svg>
     </main>
     <footer></footer>
   </body>
