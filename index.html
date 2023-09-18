@@ -110,7 +110,7 @@
           <span aria-hidden="true">x</span>
         </button>
       </dialog>
-      <div id="cards" class="cards">
+      <div class="cards">
         <div class="cards__non-modifiable-cards">
           <div class="card card--empty">
             <button type="button" id="open-form-modal-btn">
@@ -160,7 +160,11 @@
               <p class="card__category"></p>
               <p class="card__pages"></p>
               <p class="card__status"></p>
-              <button type="button" class="card__btn--delete">
+              <button
+                type="button"
+                class="card__btn--delete"
+                data-btn-type="delete"
+              >
                 <span class="sr-only">Delete Card</span>
               </button>
             </div>

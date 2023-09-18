@@ -19,7 +19,9 @@ Library.prototype.getNewBookData = function () {
   allInputEls.forEach((inputEl) => {
     newBookObj[inputEl.name] = inputEl.value;
   });
+  // adding 2 new proprties on each book obj for identification purposes
   newBookObj["book-cover-color"] = this.getRandomHEXColor();
+  newBookObj["book-uid"] = Date.now(); // creation time becomes the uid
   return newBookObj;
 };
 
@@ -27,15 +29,18 @@ Library.prototype.appendNewBookData = function (bookObj) {
   this.booksArr.unshift(bookObj); // newest to oldest
 };
 
-Library.prototype.deleteBookData = function (bookObj) {
-  console.log("removed");
+Library.prototype.editBookData = function (bookUid) {
+  console.log("hi");
 };
 
-const Card = function () {
-  return this;
+Library.prototype.deleteBookDataObj = function (deletingBookObj) {
+  const updatedBooksArr = this.booksArr.filter(
+    (bookObj) => bookObj !== deletingBookObj
+  );
+  this.booksArr = updatedBooksArr;
 };
 
-Card.prototype.createNew = function (bookObj) {
+Library.prototype.createNewCard = function (bookObj) {
   const cardEl = document.querySelector("#card-template").cloneNode(true);
   const thumbnailSVG = cardEl.querySelector(".card__thumbnail");
   const nameEl = cardEl.querySelector(".card__title");
@@ -43,24 +48,35 @@ Card.prototype.createNew = function (bookObj) {
   const categoryEl = cardEl.querySelector(".card__category");
   const pagesEl = cardEl.querySelector(".card__pages");
   const statusEl = cardEl.querySelector(".card__status");
+  const deleteBtnEl = cardEl.querySelector("[data-btn-type=delete]");
   nameEl.textContent = bookObj["book-name"];
   authorEl.textContent = bookObj["book-author"];
   categoryEl.textContent = bookObj["book-category"];
   pagesEl.textContent = bookObj["book-pages"];
   statusEl.textContent = bookObj["book-read-status"];
   cardEl.removeAttribute("id");
+  cardEl.dataset.cardUid = bookObj["book-uid"];
   cardEl.classList.remove("hidden");
   thumbnailSVG.style.setProperty("--cover-color", bookObj["book-cover-color"]);
+  deleteBtnEl.addEventListener("click", () => {
+    this.deleteBookDataObj(bookObj);
+    this.renderAllCards();
+  });
   return cardEl;
 };
 
-Card.prototype.renderAll = function (arrOfBooksData, element) {
-  arrOfBooksData.forEach((bookObj) => element.append(this.createNew(bookObj)));
+Library.prototype.renderAllCards = function () {
+  const cardsContainer = document.querySelector("#new-cards");
+  const fragmentContainer = new DocumentFragment(); // virtual dom element, improves performance
+  this.booksArr.forEach((bookObj) =>
+    fragmentContainer.append(this.createNewCard(bookObj))
+  );
+  cardsContainer.innerHTML = ""; // remove previous cards
+  cardsContainer.append(fragmentContainer);
 };
 
-// initialize library and card object
+// initialize object
 const library = new Library();
-const card = new Card();
 
 // add prompt for user to submit book data
 const formModalEl = document.querySelector("#form-modal");
@@ -70,12 +86,8 @@ openFormModalBtnEl.addEventListener("click", () => formModalEl.showModal()); // 
 closeFormModalBtnEl.addEventListener("click", () => formModalEl.close()); // built in dialog method
 
 formModalEl.addEventListener("submit", () => {
-  const newCardsEl = document.querySelector("#new-cards");
-  const cardsFragment = new DocumentFragment();
   const newBookData = library.getNewBookData();
   library.appendNewBookData(newBookData);
-  card.renderAll(library.booksArr, cardsFragment);
-  newCardsEl.innerHTML = ""; // clear previous cards
-  newCardsEl.append(cardsFragment);
+  library.renderAllCards();
   formModalEl.querySelector("#new-book-form").reset(); // reset form to default state
 });
