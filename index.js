@@ -2,6 +2,16 @@ const Library = function () {
   this.booksArr = [];
 };
 
+Library.prototype.getRandomHEXColor = function () {
+  const supportedChars = "0123456789ABCDEF";
+  let randomColor = "#";
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * supportedChars.length);
+    randomColor += supportedChars[randomIndex];
+  }
+  return randomColor;
+};
+
 Library.prototype.getNewBookData = function () {
   const form = document.querySelector("#new-book-form");
   const allInputEls = form.querySelectorAll("[name]");
@@ -9,6 +19,7 @@ Library.prototype.getNewBookData = function () {
   allInputEls.forEach((inputEl) => {
     newBookObj[inputEl.name] = inputEl.value;
   });
+  newBookObj["book-cover-color"] = this.getRandomHEXColor();
   return newBookObj;
 };
 
@@ -24,45 +35,22 @@ const Card = function () {
   return this;
 };
 
-Card.prototype.getRandomHEXColor = function () {
-  const supportedChars = "0123456789ABCDEF";
-  let randomColor = "#";
-  for (let i = 0; i < 6; i++) {
-    const randomIndex = Math.floor(Math.random() * supportedChars.length);
-    randomColor += supportedChars[randomIndex];
-  }
-  return randomColor;
-};
-
-Card.prototype.createNewThumbnailSVG = function () {
-  const OGThumbnailSVG = document.querySelector("svg[data-id='-1']");
-  const clonedThumbnailSVG = OGThumbnailSVG.cloneNode(true); // deep clone
-  clonedThumbnailSVG.classList.remove("hidden");
-  clonedThumbnailSVG.style.setProperty(
-    "--cover-color",
-    this.getRandomHEXColor()
-  );
-  return clonedThumbnailSVG;
-};
-
 Card.prototype.createNew = function (bookObj) {
-  const bookData = bookObj;
-  const cardEl = document.createElement("div");
-  const thumbnailEl = document.createElement("div");
-  const thumbnailSVG = this.createNewThumbnailSVG();
-  const textContentWrapperEl = document.createElement("div");
-  const nameEl = document.createElement("h2");
-  const authorEl = document.createElement("p");
-  const pagesEl = document.createElement("p");
-  const categoryEl = document.createElement("p");
-  const statusEl = document.createElement("p");
-  nameEl.textContent = bookData["book-name"];
-  authorEl.textContent = bookData["book-author"];
-  pagesEl.textContent = bookData["book-pages"];
-  statusEl.textContent = bookData["book-read-status"];
-  thumbnailEl.append(thumbnailSVG);
-  textContentWrapperEl.append(nameEl, authorEl, pagesEl, categoryEl, statusEl);
-  cardEl.append(thumbnailEl, textContentWrapperEl);
+  const cardEl = document.querySelector("#card-template").cloneNode(true);
+  const thumbnailSVG = cardEl.querySelector(".card__thumbnail");
+  const nameEl = cardEl.querySelector(".card__title");
+  const authorEl = cardEl.querySelector(".card__author");
+  const categoryEl = cardEl.querySelector(".card__category");
+  const pagesEl = cardEl.querySelector(".card__pages");
+  const statusEl = cardEl.querySelector(".card__status");
+  nameEl.textContent = bookObj["book-name"];
+  authorEl.textContent = bookObj["book-author"];
+  categoryEl.textContent = bookObj["book-category"];
+  pagesEl.textContent = bookObj["book-pages"];
+  statusEl.textContent = bookObj["book-read-status"];
+  cardEl.removeAttribute("id");
+  cardEl.classList.remove("hidden");
+  thumbnailSVG.style.setProperty("--cover-color", bookObj["book-cover-color"]);
   return cardEl;
 };
 
