@@ -39,14 +39,17 @@ Library.prototype.getEditModal = function (bookObj) {
   let editModalEl = document.getElementById(editModalId);
   // clone modal if it is not already present on dom
   if (!editModalEl) {
-    // update ids
+    // update attributes
     editModalEl = document.querySelector("#new-book-modal").cloneNode(true);
     editModalEl.setAttribute("id", editModalId);
     editModalEl.querySelector("form").setAttribute("id", editFormId);
   }
   const editFormEl = editModalEl.querySelector(`#${editFormId}`);
-  // assigning bookObj current values to be the default value of all inputs
   const allInputEls = editFormEl.querySelectorAll("[name]");
+  const submitBtnEl = editFormEl.querySelector("[data-btn-type=add]");
+  const cancelBtnEl = editModalEl.querySelector("[data-btn-type=cancel]");
+  submitBtnEl.textContent = "Submit";
+  // assigning bookObj current values to be the default value of all inputs
   allInputEls.forEach((inputEl) => {
     if (bookObj.hasOwnProperty(inputEl.name)) {
       inputEl.value = bookObj[inputEl.name];
@@ -62,7 +65,7 @@ Library.prototype.getEditModal = function (bookObj) {
     this.renderAllCards();
     editModalEl.close();
   });
-
+  cancelBtnEl.addEventListener("click", () => editModalEl.close());
   return editModalEl;
 };
 
@@ -118,7 +121,9 @@ const library = new Library();
 const newBookModalEl = document.querySelector("#new-book-modal");
 const newBookFormEl = newBookModalEl.querySelector("#new-book-form");
 const openFormModalBtnEl = document.querySelector("#open-form-modal-btn");
-const closeFormModalBtnEl = document.querySelector("#close-form-modal-btn");
+const closeFormModalBtnEl = newBookModalEl.querySelector(
+  "[data-btn-type=cancel]"
+);
 openFormModalBtnEl.addEventListener("click", () => newBookModalEl.showModal()); // built in dialog method
 closeFormModalBtnEl.addEventListener("click", () => newBookModalEl.close()); // built in dialog method
 
