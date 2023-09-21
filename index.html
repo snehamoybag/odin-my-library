@@ -17,8 +17,8 @@
       </div>
     </header>
     <main>
-      <dialog id="new-book-modal" class="form__modal">
-        <form action="/" method="dialog" id="new-book-form" class="form">
+      <dialog id="new-book-modal" class="modal">
+        <form action="/" method="dialog" id="new-book-form" class="modal__form">
           <p>
             <label for="book-name">Book Name</label>
             <input type="text" id="book-name" name="book-name" required />
@@ -32,9 +32,7 @@
             <input type="number" id="book-pages" name="book-pages" required />
           </p>
           <p>
-            <label for="book-category">
-              <span class="sr-only">Select a Category</span>
-            </label>
+            <label for="book-category">Select a Category </label>
             <select id="book-category" name="book-category" required>
               <optgroup label="Fiction">
                 <option>Action and adventure</option>
@@ -108,9 +106,21 @@
               <option value="Not Read">Not yet read</option>
             </select>
           </p>
-          <button type="submit" data-btn-type="add">Add</button>
+          <button
+            type="submit"
+            class="button button--submit"
+            data-btn-type="add"
+          >
+            Add
+          </button>
         </form>
-        <button type="button" data-btn-type="cancel">Cancel</button>
+        <button
+          type="button"
+          class="button button--danger"
+          data-btn-type="cancel"
+        >
+          Cancel
+        </button>
       </dialog>
       <div id="cards-container" class="cards-container">
         <!-- a hidden card template used in js as a reference -->
@@ -167,12 +177,12 @@
             </button>
           </div>
         </div>
-        <div id="empty-card" class="card card--empty">
-          <button type="button" id="open-form-modal-btn">
+        <button type="button" id="empty-card" class="card card--empty">
+          <div>
             <span class="sr-only">Add New Book</span
             ><span aria-hidden="true">+</span>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </main>
     <footer></footer>

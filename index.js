@@ -126,7 +126,7 @@ const library = new Library();
 // add prompt for user to submit book data
 const newBookModalEl = document.querySelector("#new-book-modal");
 const newBookFormEl = newBookModalEl.querySelector("#new-book-form");
-const openFormModalBtnEl = document.querySelector("#open-form-modal-btn");
+const openFormModalBtnEl = document.querySelector("#empty-card");
 const closeFormModalBtnEl = newBookModalEl.querySelector(
   "[data-btn-type=cancel]"
 );

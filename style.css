@@ -1,13 +1,15 @@
 :root {
-  --clr-primary-200: hsl(242, 99%, 99%);
-  --clr-primary-400: hsl(242, 99%, 60%);
+  --clr-primary-200: hsl(180, 100%, 99%);
+  --clr-primary-400: hsl(180, 100%, 25%);
 
   --clr-neutral-100: hsl(0, 0%, 100%);
-  --clr-neutral-200: hsl(0, 0%, 90%);
-  --clr-neutral-300: hsl(0, 0%, 80%);
-  --clr-neutral-700: hsl(0, 0%, 25%);
-  --clr-neutral-900: hsl(0, 0%, 0%);
+  --clr-neutral-700: hsl(204, 19%, 26%);
+  --clr-neutral-900: hsl(204, 19%, 15%);
 
+  --clr-thumbnail-bg: hsl(51, 100%, 50%);
+  --clr-danger: hsl(338, 100%, 50%);
+
+  --fw-normal: 400;
   --fw-bold: 700;
 }
 
@@ -20,13 +22,27 @@
 }
 
 body {
+  font-weight: var(--fw-normal);
   background-color: var(--clr-primary-200);
+  color: var(--clr-neutral-700);
 }
 
 img,
 svg {
   max-width: 100%;
   display: block;
+}
+
+input,
+select {
+  width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--fw-bold);
+  color: var(--clr-neutral-900);
 }
 
 header {
@@ -40,11 +56,67 @@ main {
   padding: 3em 1em;
 }
 
+.modal {
+  width: 75%;
+  max-width: 500px;
+  padding: 2em;
+  border: 2px solid var(--clr-primary-400);
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px hsla(180, 100%, 25%, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal::backdrop {
+  background: var(--clr-primary-400);
+  backdrop-filter: blur(5px) brightness(0.75);
+}
+
+/* remove browsers default font stylings */
+.modal input,
+.modal select,
+.modal button {
+  font: inherit;
+}
+
+.modal .button {
+  width: 100%;
+  padding: 1em;
+}
+
+.modal .button--danger {
+  margin-top: 1rem;
+}
+
+.modal__form input,
+.modal__form select {
+  background-color: transparent;
+  padding: 0.75em 0.5em;
+  border: 1px solid var(--clr-primary-400);
+  border-radius: 5px;
+  margin-top: 0.25rem;
+}
+
+.modal__form input:focus,
+.modal__form select:focus {
+  outline-color: var(--clr-primary-400);
+}
+
+/* all direct children excluding the first */
+.modal__form > * + * {
+  margin-top: 1rem;
+}
+
+.modal__form .button--submit {
+  margin-top: 2rem;
+}
+
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 45em) {
@@ -55,16 +127,50 @@ main {
 
 .card {
   width: 300px;
-  height: 350px;
-  padding: 1em;
+  /* height: 350px; */
+  padding: 1.25em;
   background-color: var(--clr-neutral-100);
-  border: 1px solid var(--clr-neutral-300);
+  border: 0.5px solid var(--clr-primary-400);
   border-radius: 10px;
+  transition: all 200ms ease;
 }
 
 .card:hover {
   transform: scale(101%);
   box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.1);
+}
+
+.card__thumbnail-wrapper {
+  height: 150px;
+  background-image: radial-gradient(
+    circle,
+    transparent 10%,
+    var(--clr-thumbnail-bg)
+  );
+  border: 0.25px solid var(--clr-primary-400);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__thumbnail {
+  --cover-color: var(--clr-primary-400); /* gets manipulated by javascript */
+  width: 75px;
+  height: 75px;
+}
+
+.card-thumbnail__cover-color {
+  fill: var(--cover-color);
+}
+
+.card__texts-wrapper {
+  margin-top: 1rem;
+}
+
+/* all first child excluding the first */
+.card__texts-wrapper > * + * {
+  margin-top: 0.5rem;
 }
 
 .card--empty {
@@ -73,36 +179,60 @@ main {
   align-items: center;
 }
 
-.card--empty > button {
-  --btn-size: 150px;
-  width: var(--btn-size);
-  height: var(--btn-size);
+.card--empty > div {
+  --icon-size: 150px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   font-size: 5rem;
   font-weight: var(--fw-bold);
   background-color: var(--clr-neutral-200);
   color: var(--clr-neutral-700);
   border: none;
   border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.card--empty > button:hover {
+.card--empty > div:hover {
   cursor: pointer;
   filter: brightness(0.95);
 }
 
-.card--empty > button:active {
+.card--empty > div:active {
   transform: scale(0.97);
 }
 
-.card-thumbnail {
-  --cover-color: #45aab8; /* gets manipulated by javascript */
-}
-
-.card-thumbnail__cover-color {
-  fill: var(--cover-color);
-}
-
 /* Utility classes */
+.button {
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  padding: 0.5em 1.5em;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.1);
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.button:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+.button--submit {
+  background-color: var(--clr-primary-400);
+  color: var(--clr-neutral-100);
+}
+
+.button--danger {
+  background-color: var(--clr-danger);
+  color: var(--clr-neutral-100);
+}
+
 .hidden {
   display: none;
 }
