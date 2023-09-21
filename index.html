@@ -112,75 +112,66 @@
         </form>
         <button type="button" data-btn-type="cancel">Cancel</button>
       </dialog>
-      <div class="cards">
-        <div class="cards__non-modifiable-cards">
-          <div class="card card--empty">
-            <button type="button" id="open-form-modal-btn">
-              <span class="sr-only">Add New Book</span
-              ><span aria-hidden="true">+</span>
+      <div id="cards-container" class="cards-container">
+        <!-- a hidden card template used in js as a reference -->
+        <div id="card-template" class="card hidden">
+          <div class="card__thumbnail-wrapper">
+            <svg
+              class="card__thumbnail"
+              aria-hidden="true"
+              version="1.0"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="100px"
+              height="100px"
+              viewBox="0 0 64 64"
+              enable-background="new 0 0 64 64"
+              xml:space="preserve"
+            >
+              <g>
+                <path
+                  fill="#394240"
+                  d="M56,0H8C5.789,0,4,1.789,4,4v52c0,4.418,3.582,8,8,8h44c2.211,0,4-1.789,4-4V4C60,1.789,58.211,0,56,0z
+ M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z M52,40H12V8h40V40z"
+                />
+                <path
+                  fill="#F9EBB2"
+                  d="M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z"
+                />
+                <rect
+                  class="card-thumbnail__cover-color"
+                  x="12"
+                  y="8"
+                  width="40"
+                  height="32"
+                />
+              </g>
+            </svg>
+          </div>
+          <div class="card__texts-wrapper">
+            <h2 class="card__title"></h2>
+            <p class="card__author"></p>
+            <p class="card__category"></p>
+            <p class="card__pages"></p>
+            <p class="card__status"></p>
+            <button
+              type="button"
+              class="card__btn--delete"
+              data-btn-type="delete"
+            >
+              <span class="sr-only">Delete Card</span>
+            </button>
+            <button type="button" class="card__btn--edit" data-btn-type="edit">
+              <span class="sr-only">Edit Card</span>
             </button>
           </div>
-          <!-- a hidden card template used in js as a reference -->
-          <div id="card-template" class="card hidden">
-            <div class="card__thumbnail-wrapper">
-              <svg
-                class="card__thumbnail"
-                aria-hidden="true"
-                version="1.0"
-                id="Layer_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                width="100px"
-                height="100px"
-                viewBox="0 0 64 64"
-                enable-background="new 0 0 64 64"
-                xml:space="preserve"
-              >
-                <g>
-                  <path
-                    fill="#394240"
-                    d="M56,0H8C5.789,0,4,1.789,4,4v52c0,4.418,3.582,8,8,8h44c2.211,0,4-1.789,4-4V4C60,1.789,58.211,0,56,0z
- M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z M52,40H12V8h40V40z"
-                  />
-                  <path
-                    fill="#F9EBB2"
-                    d="M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z"
-                  />
-                  <rect
-                    class="card-thumbnail__cover-color"
-                    x="12"
-                    y="8"
-                    width="40"
-                    height="32"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div class="card__texts-wrapper">
-              <h2 class="card__title"></h2>
-              <p class="card__author"></p>
-              <p class="card__category"></p>
-              <p class="card__pages"></p>
-              <p class="card__status"></p>
-              <button
-                type="button"
-                class="card__btn--delete"
-                data-btn-type="delete"
-              >
-                <span class="sr-only">Delete Card</span>
-              </button>
-              <button
-                type="button"
-                class="card__btn--edit"
-                data-btn-type="edit"
-              >
-                <span class="sr-only">Edit Card</span>
-              </button>
-            </div>
-          </div>
         </div>
-        <div id="new-cards" class="cards__modifiable-cards">
-          <!-- new cards gets injected here -->
+        <div id="empty-card" class="card card--empty">
+          <button type="button" id="open-form-modal-btn">
+            <span class="sr-only">Add New Book</span
+            ><span aria-hidden="true">+</span>
+          </button>
         </div>
       </div>
     </main>

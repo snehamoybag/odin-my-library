@@ -1,6 +1,6 @@
 :root {
-  --clr-primary-200: hsl(123, 100%, 99%);
-  --clr-primary-400: hsl(123, 100%, 40%);
+  --clr-primary-200: hsl(242, 99%, 99%);
+  --clr-primary-400: hsl(242, 99%, 60%);
 
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-neutral-200: hsl(0, 0%, 90%);
@@ -40,9 +40,22 @@ main {
   padding: 3em 1em;
 }
 
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (min-width: 45em) {
+  .cards-container {
+    justify-content: start;
+  }
+}
+
 .card {
   width: 300px;
-  height: 500px;
+  height: 350px;
   padding: 1em;
   background-color: var(--clr-neutral-100);
   border: 1px solid var(--clr-neutral-300);

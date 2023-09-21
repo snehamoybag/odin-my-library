@@ -85,7 +85,6 @@ Library.prototype.createNewCard = function (bookObj) {
   pagesEl.textContent = bookObj["book-pages"];
   statusEl.textContent = bookObj["book-read-status"];
   cardEl.removeAttribute("id");
-  cardEl.dataset.cardUid = bookObj["book-uid"];
   cardEl.classList.remove("hidden");
   thumbnailSVG.style.setProperty("--cover-color", bookObj["book-cover-color"]);
   editBtnEl.addEventListener("click", () => {
@@ -105,12 +104,19 @@ Library.prototype.createNewCard = function (bookObj) {
 };
 
 Library.prototype.renderAllCards = function () {
-  const cardsContainer = document.querySelector("#new-cards");
+  const cardsContainer = document.querySelector("#cards-container");
   const fragmentContainer = new DocumentFragment(); // virtual dom element, improves performance
+  const deletePrevCards = () => {
+    const emptyCard = document.querySelector("#empty-card");
+    while (emptyCard !== cardsContainer.lastChild) {
+      emptyCard.nextSibling.remove();
+    }
+  };
+
   this.booksArr.forEach((bookObj) =>
     fragmentContainer.append(this.createNewCard(bookObj))
   );
-  cardsContainer.innerHTML = ""; // remove previous cards
+  deletePrevCards(); // remove previous cards
   cardsContainer.append(fragmentContainer);
 };
 
