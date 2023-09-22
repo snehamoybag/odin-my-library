@@ -205,6 +205,7 @@ main {
 .card__texts-wrapper > p {
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .card__title {
