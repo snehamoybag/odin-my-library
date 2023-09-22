@@ -3,12 +3,14 @@
   --clr-primary-400: hsl(180, 100%, 25%);
 
   --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-neutral-200: hsl(204, 19%, 95%);
   --clr-neutral-700: hsl(204, 19%, 26%);
   --clr-neutral-900: hsl(204, 19%, 15%);
 
   --clr-thumbnail-bg: hsl(51, 100%, 50%);
   --clr-danger: hsl(338, 100%, 50%);
 
+  --ff-primary: "Open Sans", sans-serif;
   --fw-normal: 400;
   --fw-bold: 700;
 }
@@ -22,6 +24,7 @@
 }
 
 body {
+  font-family: var(--ff-primary);
   font-weight: var(--fw-normal);
   background-color: var(--clr-primary-200);
   color: var(--clr-neutral-700);
@@ -38,6 +41,11 @@ select {
   width: 100%;
 }
 
+input,
+button {
+  font: inherit;
+}
+
 h1,
 h2,
 h3 {
@@ -50,6 +58,23 @@ header {
   padding: 2em 1.5em;
   border-bottom: 2px solid var(--clr-primary-400);
   box-shadow: 0 5px 5px hsla(0, 0%, 20%, 0.1);
+}
+
+.logo__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 2rem;
+  object-fit: contain;
+}
+
+.logo__title {
+  color: var(--clr-primary-400);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
 }
 
 main {
@@ -126,13 +151,15 @@ main {
 }
 
 .card {
-  width: 300px;
-  /* height: 350px; */
-  padding: 1.25em;
+  --card-side-padding: 1.25em;
+  width: 250px;
+  min-height: 370px;
+  padding: var(--card-side-padding);
   background-color: var(--clr-neutral-100);
   border: 0.5px solid var(--clr-primary-400);
   border-radius: 10px;
   transition: all 200ms ease;
+  position: relative;
 }
 
 .card:hover {
@@ -168,15 +195,66 @@ main {
   margin-top: 1rem;
 }
 
-/* all first child excluding the first */
+/* all direct child excluding the first */
 .card__texts-wrapper > * + * {
   margin-top: 0.5rem;
+}
+
+/* limit the lines */
+.card__texts-wrapper > h2,
+.card__texts-wrapper > p {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card__title {
+  font-size: 1.125rem;
+}
+
+.card__texts-wrapper > p {
+  font-size: 0.875rem;
+}
+
+.card__buttons-wrapper {
+  display: inline-flex;
+  gap: 0.75rem;
+  position: absolute;
+  right: var(--card-side-padding);
+  bottom: var(--card-side-padding);
+}
+
+.card__buttons-wrapper > button {
+  background-color: transparent;
+  color: var(--clr-neutral-700);
+  border: none;
+  opacity: 0.5;
+}
+
+.card__buttons-wrapper > button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.card__buttons-wrapper > button:active {
+  font-size: 90%;
+}
+
+.card__btn-edit:hover {
+  color: var(--clr-primary-400);
+}
+
+.card__btn-delete:hover {
+  color: var(--clr-danger);
 }
 
 .card--empty {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+.card--empty:hover {
+  cursor: pointer;
 }
 
 .card--empty > div {
@@ -195,7 +273,6 @@ main {
 }
 
 .card--empty > div:hover {
-  cursor: pointer;
   filter: brightness(0.95);
 }
 

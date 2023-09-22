@@ -80,10 +80,10 @@ Library.prototype.createNewCard = function (bookObj) {
   const editBtnEl = cardEl.querySelector("[data-btn-type=edit]");
   const deleteBtnEl = cardEl.querySelector("[data-btn-type=delete]");
   nameEl.textContent = bookObj["book-name"];
-  authorEl.textContent = bookObj["book-author"];
-  categoryEl.textContent = bookObj["book-category"];
-  pagesEl.textContent = bookObj["book-pages"];
-  statusEl.textContent = bookObj["book-read-status"];
+  authorEl.textContent = "Author: " + bookObj["book-author"];
+  categoryEl.textContent = "Genre: " + bookObj["book-category"];
+  pagesEl.textContent = "Pages: " + bookObj["book-pages"];
+  statusEl.textContent = "Status: " + bookObj["book-read-status"];
   cardEl.removeAttribute("id");
   cardEl.classList.remove("hidden");
   thumbnailSVG.style.setProperty("--cover-color", bookObj["book-cover-color"]);
