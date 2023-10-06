@@ -4,10 +4,10 @@ class Library {
     return this.#library;
   }
   addToLibrary(book) {
-    this.#library.unshift(book); // add it at the beginning
+    this.#library.unshift(book); // add it at the beginnig
   }
   removeFromLibrary(book) {
-    this.#library = this.#library.filter((currentBook) => currentBook !== book);
+    this.#library = this.library.filter((currentBook) => currentBook !== book);
   }
 }
 
@@ -20,9 +20,17 @@ class Book {
     this.readStatus = readStatus;
     this.coverColor = coverColor;
   }
+  edit(name, author, pages, category, readStatus, coverColor) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.category = category;
+    this.readStatus = readStatus;
+    this.coverColor = coverColor;
+  }
 }
 
-class Card extends Library {
+class Card {
   createNewCard(book, modal) {
     const cardEl = document.querySelector("#card-template").cloneNode(true);
     const thumbnailSVG = cardEl.querySelector(".card__thumbnail");
@@ -45,3 +53,31 @@ class Card extends Library {
     deleteBtnEl.add("click", (book) => this.removeFromLibrary(book));
   }
 }
+
+// initialize library
+const library = new Library();
+
+const renderLibrary = () => {
+  const allBooks = library.library; // getter
+  const containerDiv = document.querySelector("#cards-container");
+  const removePrevRenderedLibrary = () => {
+    const emptyCard = document.querySelector("#new-card-btn");
+    while (emptyCard !== cardsContainer.lastChild) {
+      emptyCard.nextSibling.remove();
+    }
+  };
+  const renderNewLibrary = () => {
+    const containerFragment = new DocumentFragment();
+    allBooks.forEach((book) => {
+      containerFragment.append(cardifier(book));
+    });
+    containerDiv.prepend(containerFragment);
+  };
+  removePrevRenderedLibrary();
+  renderNewLibrary();
+};
+
+const bookModal = document.querySelector("#book-modal");
+const newBookBtn = document.querySelector("#new-card-btn");
+
+newBookBtn.addEventListener("click", () => bookModal.showModal());
