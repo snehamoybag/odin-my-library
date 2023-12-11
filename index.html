@@ -26,7 +26,8 @@
       </div>
     </header>
     <main>
-      <dialog id="book-modal" class="modal">
+      <!-- reference to copy this dialog modal in js -->
+      <dialog id="book-modal" class="modal hidden">
         <form action="/" method="dialog" id="book-form" class="modal__form">
           <p>
             <label for="book-name">Book Name</label>
@@ -56,7 +57,6 @@
               name="book-pages"
               min="1"
               max="999999"
-              step="1"
               required
             />
           </p>
@@ -92,7 +92,7 @@
                 <option>Thriller</option>
                 <option>Western</option>
                 <option>Young adult</option>
-                <option value="Fiction">Other</option>
+                <option>Other fictions</option>
               </optgroup>
               <optgroup label="Non-fiction">
                 <option>Art/architecture</option>
@@ -123,99 +123,102 @@
                 <option>Sports and leisure</option>
                 <option>Travel</option>
                 <option>True crime</option>
-                <option value="Non-fiction">Other</option>
+                <option>Other non-fictions</option>
               </optgroup>
             </select>
           </p>
           <p>
-            <label for="read-status">Select Status</label>
-            <select id="read-status" name="book-read-status">
-              <option value="Read">Read</option>
-              <option value="Reading">Reading</option>
-              <option value="Not Read">Not yet read</option>
+            <label for="book-status">Select Status</label>
+            <select id="book-status" name="book-status">
+              <option>Read</option>
+              <option>Reading</option>
+              <option>Not Read</option>
             </select>
           </p>
-          <button
-            type="submit"
-            class="button button--submit"
-            data-btn-type="add"
-          >
-            Add
-          </button>
+          <div class="book-modal__btns-wrapper">
+            <button
+              id="book-modal-submit-btn"
+              type="submit"
+              class="button button--submit"
+            >
+              Add
+            </button>
+            <button
+              id="book-modal-cancel-btn"
+              type="button"
+              class="button button--danger"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
-        <button
-          type="button"
-          class="button button--danger"
-          data-btn-type="cancel"
-        >
-          Cancel
-        </button>
       </dialog>
-      <div id="cards-container" class="cards-container">
-        <!-- a hidden card template used in js as a reference -->
-        <div id="card-template" class="card hidden">
-          <div class="card__thumbnail-wrapper">
-            <svg
-              class="card__thumbnail"
-              aria-hidden="true"
-              version="1.0"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="100px"
-              height="100px"
-              viewBox="0 0 64 64"
-              enable-background="new 0 0 64 64"
-              xml:space="preserve"
-            >
-              <g>
-                <path
-                  fill="#394240"
-                  d="M56,0H8C5.789,0,4,1.789,4,4v52c0,4.418,3.582,8,8,8h44c2.211,0,4-1.789,4-4V4C60,1.789,58.211,0,56,0z
+      <!-- a hidden card template used in js as a reference -->
+      <div id="card-template" class="card hidden" data-id="card">
+        <div class="card__thumbnail-wrapper">
+          <svg
+            data-id="card-thumbnail"
+            class="card__thumbnail"
+            aria-hidden="true"
+            version="1.0"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="100px"
+            height="100px"
+            viewBox="0 0 64 64"
+            enable-background="new 0 0 64 64"
+            xml:space="preserve"
+          >
+            <g>
+              <path
+                fill="#394240"
+                d="M56,0H8C5.789,0,4,1.789,4,4v52c0,4.418,3.582,8,8,8h44c2.211,0,4-1.789,4-4V4C60,1.789,58.211,0,56,0z
  M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z M52,40H12V8h40V40z"
-                />
-                <path
-                  fill="#F9EBB2"
-                  d="M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z"
-                />
-                <rect
-                  class="card-thumbnail__cover-color"
-                  x="12"
-                  y="8"
-                  width="40"
-                  height="32"
-                />
-              </g>
-            </svg>
-          </div>
-          <div class="card__texts-wrapper">
-            <h2 class="card__title"></h2>
-            <p class="card__author"></p>
-            <p class="card__pages"></p>
-            <p class="card__category"></p>
-            <p class="card__status"></p>
-          </div>
-          <div class="card__buttons-wrapper">
-            <button
-              type="button"
-              class="card__btn-edit"
-              data-btn-type="edit"
-              title="edit card"
-            >
-              <span class="sr-only">Edit Card</span>
-              <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-            <button
-              type="button"
-              class="card__btn-delete"
-              data-btn-type="delete"
-              title="delete card"
-            >
-              <span class="sr-only">Delete Card</span>
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
+              />
+              <path
+                fill="#F9EBB2"
+                d="M52,56H16c-2.211,0-4-1.789-4-4s1.789-4,4-4h36V56z"
+              />
+              <rect
+                class="card-thumbnail__cover-color"
+                x="12"
+                y="8"
+                width="40"
+                height="32"
+              />
+            </g>
+          </svg>
         </div>
+        <div class="card__texts-wrapper">
+          <h2 class="card__title" data-id="book-name"></h2>
+          <p class="card__author" data-id="book-author"></p>
+          <p class="card__pages" data-id="book-pages"></p>
+          <p class="card__category" data-id="book-category"></p>
+          <p class="card__status" data-id="book-status"></p>
+        </div>
+        <div class="card__buttons-wrapper">
+          <button
+            type="button"
+            class="card__btn-edit"
+            data-btn-type="edit"
+            title="edit book"
+          >
+            <span class="sr-only">Edit Card</span>
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button
+            type="button"
+            class="card__btn-delete"
+            data-btn-type="delete"
+            title="delete book"
+          >
+            <span class="sr-only">Delete Card</span>
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div id="cards-container" class="cards-container">
         <button type="button" id="new-card-btn" class="card card--empty">
           <div>
             <span class="sr-only">Add New Book</span
