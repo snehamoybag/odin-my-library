@@ -112,16 +112,16 @@ class Card {
     titlEl.textContent = name;
 
     const authorEl = cardEl.querySelector("[data-id=book-author]");
-    authorEl.textContent = author;
+    authorEl.textContent = "by " + author;
 
     const pagesEl = cardEl.querySelector("[data-id=book-pages");
-    pagesEl.textContent = pages;
+    pagesEl.textContent = "Pages: " + pages;
 
     const categoryEl = cardEl.querySelector("[data-id=book-category]");
-    categoryEl.textContent = category;
+    categoryEl.textContent = "Category: " + category;
 
     const statusEl = cardEl.querySelector("[data-id=book-status]");
-    statusEl.textContent = status;
+    statusEl.textContent = "Status: " + status;
 
     const editBtnEl = cardEl.querySelector("[data-btn-type=edit]");
     editBtnEl.addEventListener("click", () =>
